@@ -4,6 +4,6 @@ class User < ApplicationRecord
     has_many :projects
 
     # username validation
-    validates :username, :uniqueness: { case_sensitive: false }
+    validates :username, uniqueness: { case_sensitive: false }
 
 end
