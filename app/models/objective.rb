@@ -1,4 +1,4 @@
 class Objective < ApplicationRecord
     
-    belongs_to :agenda
+    belongs_to :project
 end

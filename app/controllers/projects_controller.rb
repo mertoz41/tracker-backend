@@ -1,4 +1,9 @@
 class ProjectsController < ApplicationController
+    def show
+        project = Project.find(params[:id])
+        render json: {objectives: project.objectives}
+    end 
+    
     def create
         
         project = Project.create(title: params[:projectName], duration: params[:duration], user_id: params[:user_id])
