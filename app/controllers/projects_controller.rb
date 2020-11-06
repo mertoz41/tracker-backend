@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
         project = Project.create(title: params[:projectName], duration: params[:duration], user_id: params[:user_id])
 
         if project.valid?
-            render json: {project: project}, status: :accepted
+            render json: {project: project.as_json(:include => [:objectives])}, status: :accepted
         else
             render json: {message: "Project with this name already exists"}, status: :not_acceptable
         end 
