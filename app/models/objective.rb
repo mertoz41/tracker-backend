@@ -1,4 +1,3 @@
 class Objective < ApplicationRecord
-    
-    belongs_to :project
+    belongs_to :story
 end

@@ -19,7 +19,6 @@ class ProjectsController < ApplicationController
         updated_project = Project.find(params[:id])
         updated_project.description = params[:description]
         updated_project.save
-        render json: {project: updated_project}
-        
+        render json: {project: updated_project.as_json(:include => [:objectives])}
     end 
 end
