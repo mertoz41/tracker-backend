@@ -30,5 +30,6 @@ class ApplicationController < ActionController::API
             arr.push(obj)
         end
         return arr
-    end 
+    end
+
 end

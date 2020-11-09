@@ -7,9 +7,10 @@ class ProjectsController < ApplicationController
     def create
         
         project = Project.create(title: params[:projectName], duration: params[:duration], user_id: params[:user_id])
+        # include stories and objectives
 
         if project.valid?
-            render json: {project: project.as_json(:include => [:objectives])}, status: :accepted
+            render json: {project: project}, status: :accepted
         else
             render json: {message: "Project with this name already exists"}, status: :not_acceptable
         end 
@@ -17,8 +18,10 @@ class ProjectsController < ApplicationController
 
     def update
         updated_project = Project.find(params[:id])
+    
         updated_project.description = params[:description]
         updated_project.save
-        render json: {project: updated_project.as_json(:include => [:objectives])}
+        # include stories and objectives
+        render json: {project: updated_project}
     end 
 end
