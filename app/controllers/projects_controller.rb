@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
         # include stories and objectives
 
         if project.valid?
-            render json: {project: project}, status: :accepted
+            render json: {project: project.as_json(:include => {:stories => {:include => :objectives}})}, status: :accepted
         else
             render json: {message: "Project with this name already exists"}, status: :not_acceptable
         end 
@@ -22,6 +22,6 @@ class ProjectsController < ApplicationController
         updated_project.description = params[:description]
         updated_project.save
         # include stories and objectives
-        render json: {project: updated_project}
+        render json: {project: updated_project.as_json(:include => {:stories => {:include => :objectives}})}
     end 
 end

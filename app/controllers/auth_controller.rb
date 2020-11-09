@@ -5,9 +5,8 @@ class AuthController < ApplicationController
         if user && user.authenticate(params[:password])
             payload = {user_id: user.id}
             token = encode(payload)
-            projects = get_projects(user.id)
 
-            render json: {user: user.as_json(:except => [:password_digest]), token: token, user_projects: projects}
+            render json: {user: user.as_json(:except => [:password_digest], :include => [:projects => {:include => {:stories => {:include => :objectives}}}]), token: token}
         else
             render json: {message: "Invalid username or password"}
         end 
@@ -15,7 +14,6 @@ class AuthController < ApplicationController
 
     def check
         user = User.find(decode(request.headers["Authentication"])["user_id"])
-        projects = get_projects(user.id)
-        render json: {user: user.as_json(:except => [:password_digest]), user_projects: projects}
+        render json: {user: user.as_json(:except => [:password_digest], :include => [:projects => {:include => {:stories => {:include => :objectives}}}])}
     end 
 end
