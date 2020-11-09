@@ -7,7 +7,7 @@ class AuthController < ApplicationController
             token = encode(payload)
             projects = get_projects(user.id)
 
-            render json: {user: user.as_json(:except => [:password_digest]), token: token, projects: projects}
+            render json: {user: user.as_json(:except => [:password_digest]), token: token, user_projects: projects}
         else
             render json: {message: "Invalid username or password"}
         end 
@@ -16,6 +16,6 @@ class AuthController < ApplicationController
     def check
         user = User.find(decode(request.headers["Authentication"])["user_id"])
         projects = get_projects(user.id)
-        render json: {user: user.as_json(:except => [:password_digest]), projects: projects}
+        render json: {user: user.as_json(:except => [:password_digest]), user_projects: projects}
     end 
 end
