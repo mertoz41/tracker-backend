@@ -7,4 +7,10 @@ class ObjectivesController < ApplicationController
         nuObjec = Objective.create(description: params[:description], completed: false, story_id: params[:story_id])
         render json: {objective: nuObjec}
     end 
+
+    def destroy 
+        objective = Objective.find(params[:id])
+        objective.destroy
+        render json: {message: "objective removed", deleted_objective: objective}
+    end 
 end
