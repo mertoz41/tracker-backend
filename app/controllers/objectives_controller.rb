@@ -13,4 +13,11 @@ class ObjectivesController < ApplicationController
         objective.destroy
         render json: {message: "objective removed", deleted_objective: objective}
     end 
+
+    def update
+        objective = Objective.find(params[:id])
+        objective.completed = params[:completed]
+        objective.save
+        render json: {updated_objective: objective}
+    end 
 end
