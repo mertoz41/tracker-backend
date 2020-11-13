@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#create'
   get '/check', to: 'auth#check'
   patch '/progress/:id', to: 'objectives#progress'
+  patch '/edittododesc/:id', to: 'objectives#edit'
 end

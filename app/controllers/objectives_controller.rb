@@ -27,4 +27,11 @@ class ObjectivesController < ApplicationController
         objective.save
         render json: {updated_objective: objective}
     end 
+
+    def edit
+        objective = Objective.find(params[:id])
+        objective.description = params[:description]
+        objective.save
+        render json: {updated_objective: objective}
+    end 
 end

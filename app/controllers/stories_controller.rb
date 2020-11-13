@@ -9,4 +9,12 @@ class StoriesController < ApplicationController
         story.destroy
         render json: {message: "story removed", deleted_story: story}
     end 
+
+    def update
+        story = Story.find(params[:id])
+        story.description = params[:description]
+        story.save
+        render json: {updated_story: story.as_json(:include => :objectives)}
+
+    end 
 end
