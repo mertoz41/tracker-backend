@@ -4,7 +4,7 @@ class ObjectivesController < ApplicationController
         # find agenda through project id
         # user that agenda id when creating each objective. 
         # agenda = Agenda.find_by(project_id: params[:project_id])
-        nuObjec = Objective.create(description: params[:description], completed: false, story_id: params[:story_id])
+        nuObjec = Objective.create(description: params[:description], completed: false, story_id: params[:story_id], in_progress: false)
         render json: {objective: nuObjec}
     end 
 
@@ -17,6 +17,13 @@ class ObjectivesController < ApplicationController
     def update
         objective = Objective.find(params[:id])
         objective.completed = params[:completed]
+        objective.save
+        render json: {updated_objective: objective}
+    end 
+
+    def progress
+        objective = Objective.find(params[:id])
+        objective.in_progress = params[:in_progress]
         objective.save
         render json: {updated_objective: objective}
     end 
