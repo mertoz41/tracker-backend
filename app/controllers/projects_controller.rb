@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
     
     def create
         
-        project = Project.create(title: params[:projectName], duration: params[:duration], user_id: params[:user_id])
+        project = Project.create(title: params[:projectName], description: params[:description], user_id: params[:user_id])
         # include stories and objectives
 
         if project.valid?
@@ -23,5 +23,18 @@ class ProjectsController < ApplicationController
         updated_project.save
         # include stories and objectives
         render json: {project: updated_project.as_json(:include => {:stories => {:include => :objectives}})}
+    end 
+
+    def addstories
+        project = Project.find(params[:id])
+        arr = []
+        params[:stories].each do |story|
+            if story.length > 0
+                nu_story = Story.create(description: story, project_id: params[:id], completed: false)
+            end
+        end 
+
+        render json: {project: project.as_json(:include => {:stories => {:include => :objectives}})}
+
     end 
 end

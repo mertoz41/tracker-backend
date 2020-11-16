@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get '/check', to: 'auth#check'
   patch '/progress/:id', to: 'objectives#progress'
   patch '/edittododesc/:id', to: 'objectives#edit'
+  post '/addstories/:id', to: 'projects#addstories'
 end
