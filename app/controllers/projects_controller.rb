@@ -15,6 +15,12 @@ class ProjectsController < ApplicationController
             render json: {message: "Project with this name already exists"}, status: :not_acceptable
         end 
     end 
+    
+    def destroy
+        project = Project.find(params[:id])
+        project.destroy
+        render json: {message: "project deleted", deleted_project: project}
+    end 
 
     def update
         updated_project = Project.find(params[:id])
