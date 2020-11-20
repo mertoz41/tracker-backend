@@ -17,4 +17,11 @@ class StoriesController < ApplicationController
         render json: {updated_story: story.as_json(:include => :objectives)}
 
     end 
+
+    def complete 
+        story = Story.find(params[:id])
+        story.completed = params[:completed]
+        story.save
+        render json: {updated_story: story.as_json(:include => :objectives)}
+    end 
 end

@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   patch '/progress/:id', to: 'objectives#progress'
   patch '/edittododesc/:id', to: 'objectives#edit'
   post '/addstories/:id', to: 'projects#addstories'
+  patch '/compstory/:id', to: 'stories#complete'
 end
