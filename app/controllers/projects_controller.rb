@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
     def show
         project = Project.find(params[:id])
-        render json: {objectives: project.objectives}
+        @stories = project.stories
+        render json: @stories, each_serializer: StorySerializer
     end 
     
     def create
