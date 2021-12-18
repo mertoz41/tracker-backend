@@ -13,7 +13,7 @@ class AuthController < ApplicationController
     end 
 
     def check
-        user = User.find(decode(request.headers["Authentication"])["user_id"])
-        render json: {user: user.as_json(:except => [:password_digest], :include => [:projects => {:include => {:stories => {:include => :objectives}}}])}
+        @user = User.find(decode(request.headers["Authentication"])["user_id"])
+        render json: @user, serializer: UserSerializer
     end 
 end
