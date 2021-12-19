@@ -16,14 +16,15 @@ class ObjectivesController < ApplicationController
 
     def update
         objective = Objective.find(params[:id])
-        objective.completed = params[:completed]
+        objective.completed = !objective.completed
+        objective.in_progress = !objective.in_progress
         objective.save
         render json: {updated_objective: objective}
     end 
 
     def progress
         objective = Objective.find(params[:id])
-        objective.in_progress = params[:in_progress]
+        objective.in_progress = !objective.in_progress
         objective.save
         render json: {updated_objective: objective}
     end 
