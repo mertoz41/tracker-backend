@@ -6,12 +6,11 @@ class ProjectsController < ApplicationController
     end 
     
     def create
-        
-        project = Project.create(title: params[:projectName], description: params[:description], user_id: params[:user_id])
+        @project = Project.create(title: params[:projectName], description: params[:description], user_id: params[:user_id])
         # include stories and objectives
-
-        if project.valid?
-            render json: {project: project.as_json(:include => {:stories => {:include => :objectives}})}, status: :accepted
+        if @project.valid?
+            params[:stories].each {|story| Story.create(description: story, project_id: @project.id, completed: false)}
+            render json: @project, serializer: ProjectSerializer
         else
             render json: {message: "Project with this name already exists"}, status: :not_acceptable
         end 
@@ -32,16 +31,16 @@ class ProjectsController < ApplicationController
         render json: {project: updated_project.as_json(:include => {:stories => {:include => :objectives}})}
     end 
 
-    def addstories
-        project = Project.find(params[:id])
-        arr = []
-        params[:stories].each do |story|
-            if story.length > 0
-                nu_story = Story.create(description: story, project_id: params[:id], completed: false)
-            end
-        end 
+    # def addstories
+    #     project = Project.find(params[:id])
+    #     arr = []
+    #     params[:stories].each do |story|
+    #         if story.length > 0
+    #             nu_story = Story.create(description: story, project_id: params[:id], completed: false)
+    #         end
+    #     end 
 
-        render json: {project: project.as_json(:include => {:stories => {:include => :objectives}})}
+    #     render json: {project: project.as_json(:include => {:stories => {:include => :objectives}})}
 
-    end 
+    # end 
 end

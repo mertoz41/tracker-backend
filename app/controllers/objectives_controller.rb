@@ -18,6 +18,7 @@ class ObjectivesController < ApplicationController
         objective = Objective.find(params[:id])
         objective.completed = !objective.completed
         objective.in_progress = !objective.in_progress
+        # byebug
         objective.save
         render json: {updated_objective: objective}
     end 
